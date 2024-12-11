@@ -1,0 +1,67 @@
+/* Full-page layout */
+.full-page {
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevent scrolling */
+  }
+  
+  /* Sidebar styles */
+  .sidebar {
+    height: 100%; /* Full height */
+    width: 250px;
+    transition: width 0.3s ease-in-out;
+    position: fixed; /* Fix the sidebar in place */
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar.closed {
+    width: 70px; /* Compact width when closed */
+  }
+  
+  .menu {
+    margin-top: 60px; /* Add some space below the toggle button */
+    padding: 10px;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .menu-item:hover {
+    background-color: #007bff;
+  }
+  
+  .menu-item span {
+    margin-left: 10px;
+  }
+  
+  /* Toggle button */
+  .toggle-btn {
+    position: absolute;
+    top: 10px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    z-index: 1000;
+  }
+  
+  /* Main content styles */
+  .content {
+    margin-left: 250px; /* Match the open sidebar width */
+    transition: margin-left 0.3s ease-in-out;
+    height: 100vh; /* Full height of the viewport */
+    overflow: auto; /* Allow scrolling if needed */
+    background: #f8f9fa;
+  }
+  
+  .sidebar.closed + .content {
+    margin-left: 70px; /* Match the closed sidebar width */
+  }
+  
