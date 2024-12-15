@@ -7,7 +7,8 @@ import { AiFillHeart, AiTwotoneFileExclamation } from "react-icons/ai";
 import { BsCartCheck } from "react-icons/bs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import SidebarMenu from "./sidebarMenu";
+import SidebarMenu from "./SideMenu";
+import './sidebar1.css'
 const routes = [
   {
     path: "/",
