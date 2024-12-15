@@ -149,7 +149,7 @@ const SideBar = ({ children }) => {
                   exit="hidden"
                   className="logo"
                 >
-                  DoSomeCoding
+                  Management
                 </motion.h1>
               )}
             </AnimatePresence>
