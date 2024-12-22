@@ -13,6 +13,7 @@ const Scheduler = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [appointments, setAppointments] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null); // Track the selected event
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -47,9 +48,15 @@ const Scheduler = () => {
     });
   };
 
+  // Handle event selection (clicking on an event)
+  const handleSelectEvent = (event) => {
+    setSelectedEvent(event); // Set selected event to show its details
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedDate(null);
+    setSelectedEvent(null); // Clear selected event when closing the modal
   };
 
   // Handle new appointment added via modal
@@ -61,36 +68,39 @@ const Scheduler = () => {
     .map((appointment) => {
       try {
         const startDate = new Date(appointment.date);
-        const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); // Add 1 hour for end time
-
+        const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); 
         if (isNaN(startDate)) {
           throw new Error(`Invalid date: ${appointment.date}`);
         }
 
         return {
-          title: appointment.name || 'Appointment',
+          title: appointment.name +', '+appointment.comments || 'Appointment',
           start: startDate,
           end: endDate,
+          comments: appointment.comments, 
         };
       } catch (error) {
         console.error(error.message);
         return null;
       }
     })
-    .filter((event) => event !== null); 
+    .filter((event) => event !== null);
 
   return (
     <div className="App" style={{ padding: '14px' }}>
-      <h1 style={{backgroundColor:" rgb(0, 7, 61)", color:"white"}}>Appointment Scheduler</h1>
-      <br></br>
+      <h1 style={{ backgroundColor: 'rgb(0, 7, 61)', color: 'white' }}>
+        Appointment Scheduler
+      </h1>
+      <br />
       <Calendar
         localizer={localizer}
         selectable
         events={events}
         onSelectSlot={handleSelectDate}
+        onSelectEvent={handleSelectEvent} // Set event selection handler
         style={{
           height: '500px',
-          width: '1000px'
+          width: '1000px',
         }}
       />
       {isModalOpen && selectedDate && (
@@ -102,6 +112,16 @@ const Scheduler = () => {
               onClose={closeModal}
               onNewAppointment={handleNewAppointment}
             />
+          </div>
+        </div>
+      )}
+      {selectedEvent && (
+        <div className="event-details-modal">
+          <div className="modal-overlay" onClick={closeModal}></div>
+          <div className="modal-content">
+            <h2>{selectedEvent.title}</h2>
+            <p><strong>Comments:</strong> {selectedEvent.comments || 'No comments available'}</p>
+            <button onClick={closeModal}>Close</button>
           </div>
         </div>
       )}

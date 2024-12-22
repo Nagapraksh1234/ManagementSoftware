@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import Calendar from 'react-calendar'; // Install react-calendar if you haven't
 import 'react-calendar/dist/Calendar.css';
 
 const AppointmentForm = ({ onClose }) => {
   const [name, setName] = useState('');
-  const [date, setDate] = useState(''); // Keep date as a string to match original code
+  const [date, setDate] = useState(''); 
   const [time, setTime] = useState('');
   const [comments, setComments] = useState('');
-  const [appointments, setAppointments] = useState([]); // State to store appointments for the selected date
+  const [appointments, setAppointments] = useState([]); 
 
-  // Handle appointment form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const appointmentData = { name, time, date, comments };
@@ -33,33 +31,31 @@ const AppointmentForm = ({ onClose }) => {
     }
   };
 
-  // Fetch appointments for the selected date
   const fetchAppointments = async (selectedDate) => {
     try {
       const response = await axios.get(
         `http://localhost:5000/appointments/${selectedDate}`
       );
-      setAppointments(response.data); // Set appointments for the selected date
+      setAppointments(response.data); 
     } catch (error) {
       console.error('Error fetching appointments:', error);
     }
   };
 
-  // Handle calendar date change
   const handleDateChange = (selectedDate) => {
-    const formattedDate = selectedDate.toISOString().split('T')[0]; // Convert to yyyy-mm-dd format
-    setDate(formattedDate); // Save the string date
-    fetchAppointments(formattedDate); // Fetch appointments for selected date
+    const formattedDate = selectedDate.toISOString().split('T')[0]; 
+    setDate(formattedDate); 
+    fetchAppointments(formattedDate);
   };
 
   useEffect(() => {
     if (date) {
-      fetchAppointments(date); // Fetch appointments for initial date (if any)
+      fetchAppointments(date); 
     }
   }, [date]);
 
   return (
-    <div>
+    <div className='form-container'>
       <h2>Appointment Form</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -101,25 +97,7 @@ const AppointmentForm = ({ onClose }) => {
         <button type="submit">Save</button>
       </form>
 
-      {/* <div>
-        <h3>Calendar</h3>
-        <Calendar onChange={handleDateChange} value={date ? new Date(date) : new Date()} />
-      </div> */}
-
-      {/* <div>
-        <h3>Appointments on {date || 'Select a date'}</h3>
-        <ul>
-          {appointments.length > 0 ? (
-            appointments.map((appointment, index) => (
-              <li key={index}>
-                {appointment.time} - {appointment.name}: {appointment.comments}
-              </li>
-            ))
-          ) : (
-            <p>No appointments for this date.</p>
-          )}
-        </ul>
-      </div> */}
+    
     </div>
   );
 };

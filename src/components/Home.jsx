@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Users from '../Pages/Users';
 import AppointmentBooking from '../Pages/AppointmentBooking';
 import Customers from '../Pages/Customers';
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar';
 
 const Home = () => {
   return (
@@ -14,6 +14,7 @@ const Home = () => {
         <Route path="/messages" element={<AppointmentBooking />} />
         <Route path="/analytics" element={<Customers />} />
       </Routes>
+      
     </Sidebar>
   );
 };

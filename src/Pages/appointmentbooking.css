@@ -28,4 +28,38 @@
     width: 450px;
     height: 250px;
   }
+
+  /* Change color of next/prev buttons */
+.rbc-btn-group .rbc-calendar-button {
+  background-color: #4CAF50; /* Change this to your desired color */
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Change color of today button */
+.rbc-toolbar button.rbc-btn {
+  background-color: #2196F3; /* Change this to your desired color */
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Change hover effect for calendar buttons */
+.rbc-toolbar button:hover {
+  background-color: #1976D2; /* Hover color */
+  cursor: pointer;
+}
+
+/* Change selected view button (e.g., day, week, month) */
+.rbc-btn-group button.rbc-active {
+  background-color: #FF5722; /* Change this to your desired active button color */
+  color: white;
+  font-weight: bold;
+}
+
   
